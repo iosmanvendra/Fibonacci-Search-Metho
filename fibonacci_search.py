@@ -19,7 +19,18 @@ def fibonacci_search(func, a, b, epsilon):
     f2 = func(x2)
     
     steps = []  # To store the steps for displaying in the table
-    steps.append({'Iteration': k, 'a': a, 'b': b, 'x1': x1, 'f1': f1, 'x2': x2, 'f2': f2})
+    steps.append({
+        'Iteration': k, 
+        'a': a, 
+        'b': b, 
+        'x1': x1, 
+        'f1': f1, 
+        'x2': x2, 
+        'f2': f2, 
+        'd': fib[k-2] / fib[k], 
+        'New a': a, 
+        'New b': b
+    })
     
     while k > 1:
         if f1 < f2:
@@ -37,13 +48,58 @@ def fibonacci_search(func, a, b, epsilon):
             x2 = a + (fib[k-1] / fib[k]) * (b - a)
             f2 = func(x2)
         
-        steps.append({'Iteration': k, 'a': a, 'b': b, 'x1': x1, 'f1': f1, 'x2': x2, 'f2': f2})
+        steps.append({
+            'Iteration': k, 
+            'a': a, 
+            'b': b, 
+            'x1': x1, 
+            'f1': f1, 
+            'x2': x2, 
+            'f2': f2, 
+            'd': fib[k-2] / fib[k], 
+            'New a': a, 
+            'New b': b
+        })
     
     # The minimum point
     return (a + b) / 2, steps
 
 # Streamlit user interface
 def main():
+    # Custom CSS for colorful UI
+    st.markdown(
+        """
+        <style>
+        .stApp {
+            background-color: #f0f2f6;
+        }
+        .stButton>button {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .stButton>button:hover {
+            background-color: #45a049;
+        }
+        .stHeader {
+            color: #4CAF50;
+        }
+        .stNumberInput>label, .stTextInput>label {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .stTable {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
     st.title("Fibonacci Search Method")
     
     # Left-side input panel
