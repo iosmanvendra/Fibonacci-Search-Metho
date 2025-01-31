@@ -31,8 +31,8 @@ def fibonacci_search(func, a, b, epsilon):
         'x2': x2, 
         'f(x1)': f1, 
         'f(x2)': f2, 
-        'New a': a, 
-        'New b': b
+        'New a': a if f1 >= f2 else a,  # Updated based on condition
+        'New b': x2 if f1 < f2 else b   # Updated based on condition
     })
     
     for i in range(1, n):
@@ -63,8 +63,8 @@ def fibonacci_search(func, a, b, epsilon):
             'x2': x2, 
             'f(x1)': f1, 
             'f(x2)': f2, 
-            'New a': a, 
-            'New b': b
+            'New a': a if f1 >= f2 else a,  # Updated based on condition
+            'New b': x2 if f1 < f2 else b   # Updated based on condition
         })
     
     # The minimum point
@@ -104,6 +104,17 @@ def main():
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        .stTable thead th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        .stTable tbody tr:nth-child(odd) {
+            background-color: #f0f2f6;
+        }
+        .stTable tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
         .stSidebar {
             background-color: #2c3e50;
             color: white;
@@ -114,14 +125,6 @@ def main():
         }
         .stSidebar .stNumberInput>label, .stSidebar .stTextInput>label {
             color: white;
-        }
-        .logo {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .logo img {
-            width: 100px;
-            border-radius: 10px;
         }
         .developed-by {
             text-align: center;
