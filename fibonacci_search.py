@@ -34,6 +34,9 @@ def fibonacci_search(func, a, b, epsilon):
     })
     
     for i in range(1, n):
+        if i + 2 >= len(fib_reverse):
+            break  # Stop if we exceed the bounds of the Fibonacci sequence
+        
         if f1 < f2:
             b = x2
             x2 = x1
