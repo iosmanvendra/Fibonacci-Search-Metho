@@ -9,17 +9,12 @@ def fibonacci_search(func, a, b, epsilon):
         fib.append(fib[-1] + fib[-2])
     
     # Number of iterations
-    k = len(fib) - 1
+    n = len(fib) - 1
     fib_reverse = fib[::-1]  # Reverse Fibonacci series for display
 
-    # Initialize x1 and x2
-    if k < 2:
-        st.error("Error: Not enough Fibonacci numbers generated. Try reducing epsilon.")
-        return None, None
-    
-    d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
-    x1 = b - d * (b - a)
-    x2 = a + d * (b - a)
+    # Initialize points
+    x1 = a + (fib_reverse[2] / fib_reverse[0]) * (b - a)
+    x2 = a + (fib_reverse[1] / fib_reverse[0]) * (b - a)
     
     # Initial function evaluations
     f1 = func(x1)
@@ -27,10 +22,9 @@ def fibonacci_search(func, a, b, epsilon):
     
     steps = []  # To store the steps for displaying in the table
     steps.append({
-        'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
+        'Fibonacci Series': fib_reverse[0],  # Fibonacci series in reverse
         'Current a': a, 
         'Current b': b, 
-        'd': d, 
         'x1': x1, 
         'x2': x2, 
         'f(x1)': f1, 
@@ -39,33 +33,24 @@ def fibonacci_search(func, a, b, epsilon):
         'New b': b
     })
     
-    while k > 1:
+    for i in range(1, n):
         if f1 < f2:
             b = x2
             x2 = x1
             f2 = f1
-            k -= 1
-            if k < 2:
-                break
-            d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
-            x1 = b - d * (b - a)
+            x1 = a + (fib_reverse[i + 2] / fib_reverse[i]) * (b - a)
             f1 = func(x1)
         else:
             a = x1
             x1 = x2
             f1 = f2
-            k -= 1
-            if k < 2:
-                break
-            d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
-            x2 = a + d * (b - a)
+            x2 = a + (fib_reverse[i + 1] / fib_reverse[i]) * (b - a)
             f2 = func(x2)
         
         steps.append({
-            'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
+            'Fibonacci Series': fib_reverse[i],  # Fibonacci series in reverse
             'Current a': a, 
             'Current b': b, 
-            'd': d, 
             'x1': x1, 
             'x2': x2, 
             'f(x1)': f1, 
