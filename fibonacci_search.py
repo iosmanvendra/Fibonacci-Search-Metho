@@ -1,3 +1,4 @@
+import streamlit as st
 import math
 
 # Fibonacci Search Method
@@ -35,29 +36,25 @@ def fibonacci_search(func, a, b, epsilon):
     # The minimum point
     return (a + b) / 2
 
-# Taking user input for the function, interval, and epsilon
-def user_input():
+# Streamlit user interface
+def main():
+    st.title("Fibonacci Search Method")
+
     # User input for the function
-    func_str = input("Enter the function (e.g., 'x**2 + 2*x'): ")
+    func_str = st.text_input("Enter the function (e.g., x**2 + 2*x):", "x**2 + 2*x")
     func = lambda x: eval(func_str)  # Convert the string to an executable function
     
     # User input for interval
-    a = float(input("Enter the starting point of the interval (a): "))
-    b = float(input("Enter the ending point of the interval (b): "))
+    a = st.number_input("Enter the starting point of the interval (a):", -3.0)
+    b = st.number_input("Enter the ending point of the interval (b):", 5.0)
     
     # User input for epsilon
-    epsilon = float(input("Enter the error tolerance (epsilon): "))
+    epsilon = st.number_input("Enter the error tolerance (epsilon):", 0.05)
     
-    return func, a, b, epsilon
-
-# Main function
-def main():
-    func, a, b, epsilon = user_input()
-    
-    # Perform Fibonacci Search
-    minimum = fibonacci_search(func, a, b, epsilon)
-    print(f"The minimum point is approximately at x = {minimum}")
-
-# Run the main function
+    if st.button('Find Minimum'):
+        # Perform Fibonacci Search
+        minimum = fibonacci_search(func, a, b, epsilon)
+        st.write(f"The minimum point is approximately at x = {minimum}")
+        
 if __name__ == "__main__":
     main()
