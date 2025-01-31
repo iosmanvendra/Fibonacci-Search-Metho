@@ -177,10 +177,10 @@ def main():
         # Logo and Developed By section
         st.markdown(
             """
+            <div class="developed-by">
             <div class="logo">
                 <img src="https://via.placeholder.com/100" alt="Logo">
             </div>
-            <div class="developed-by">
                 Developed by <a href="https://www.example.com" target="_blank">Manvendra</a>
             </div>
             """,
