@@ -13,7 +13,11 @@ def fibonacci_search(func, a, b, epsilon):
     fib_reverse = fib[::-1]  # Reverse Fibonacci series for display
 
     # Initialize x1 and x2
-    d = fib_reverse[k - 2] / fib_reverse[k]
+    if k < 2:
+        st.error("Error: Not enough Fibonacci numbers generated. Try reducing epsilon.")
+        return None, None
+    
+    d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
     x1 = b - d * (b - a)
     x2 = a + d * (b - a)
     
@@ -23,7 +27,7 @@ def fibonacci_search(func, a, b, epsilon):
     
     steps = []  # To store the steps for displaying in the table
     steps.append({
-        'Iteration': k - len(fib) + 1,  # Iteration counter
+        'Iteration': len(fib) - k - 1,  # Iteration counter
         'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
         'Current a': a, 
         'Current b': b, 
@@ -42,7 +46,9 @@ def fibonacci_search(func, a, b, epsilon):
             x2 = x1
             f2 = f1
             k -= 1
-            d = fib_reverse[k - 2] / fib_reverse[k]
+            if k < 2:
+                break
+            d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
             x1 = b - d * (b - a)
             f1 = func(x1)
         else:
@@ -50,7 +56,9 @@ def fibonacci_search(func, a, b, epsilon):
             x1 = x2
             f1 = f2
             k -= 1
-            d = fib_reverse[k - 2] / fib_reverse[k]
+            if k < 2:
+                break
+            d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
             x2 = a + d * (b - a)
             f2 = func(x2)
         
@@ -118,23 +126,24 @@ def main():
         func = lambda x: eval(func_str)  # Convert the string to an executable function
         
         # User input for interval
-        a = st.number_input("Enter the starting point of the interval (a):", -3.0)
-        b = st.number_input("Enter the ending point of the interval (b):", 5.0)
+        a = st.number_input("Enter the starting point of the interval (a):", 0.0)
+        b = st.number_input("Enter the ending point of the interval (b):", 1.0)
         
         # User input for epsilon
-        epsilon = st.number_input("Enter the error tolerance (epsilon):", 0.05)
+        epsilon = st.number_input("Enter the error tolerance (epsilon):", 0.001)
         
     # Perform Fibonacci Search and capture steps
     if st.button('Find Minimum'):
         minimum, steps = fibonacci_search(func, a, b, epsilon)
         
-        # Display minimum result
-        st.subheader(f"The minimum point is approximately at x = {minimum}")
-        
-        # Display the steps in table format
-        st.subheader("Steps of Fibonacci Search")
-        df = pd.DataFrame(steps)
-        st.table(df)
+        if minimum is not None:
+            # Display minimum result
+            st.subheader(f"The minimum point is approximately at x = {minimum}")
+            
+            # Display the steps in table format
+            st.subheader("Steps of Fibonacci Search")
+            df = pd.DataFrame(steps)
+            st.table(df)
 
 # Run the main function
 if __name__ == "__main__":
