@@ -55,4 +55,24 @@ def main():
         func = lambda x: eval(func_str)  # Convert the string to an executable function
         
         # User input for interval
-        a = st.number_input("Enter the starting point of the interval (a
+        a = st.number_input("Enter the starting point of the interval (a):", -3.0)
+        b = st.number_input("Enter the ending point of the interval (b):", 5.0)
+        
+        # User input for epsilon
+        epsilon = st.number_input("Enter the error tolerance (epsilon):", 0.05)
+        
+    # Perform Fibonacci Search and capture steps
+    if st.button('Find Minimum'):
+        minimum, steps = fibonacci_search(func, a, b, epsilon)
+        
+        # Display minimum result
+        st.subheader(f"The minimum point is approximately at x = {minimum}")
+        
+        # Display the steps in table format
+        st.subheader("Steps of Fibonacci Search")
+        df = pd.DataFrame(steps)
+        st.table(df)
+
+# Run the main function
+if __name__ == "__main__":
+    main()
