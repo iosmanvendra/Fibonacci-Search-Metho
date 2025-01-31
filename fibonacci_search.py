@@ -125,7 +125,7 @@ def main():
         }
         .developed-by {
             text-align: center;
-            margin-top: 10px;
+            margin-bottom: 25px;
             font-size: 14px;
             color: #f0f2f6;
         }
@@ -158,22 +158,6 @@ def main():
         # User input for epsilon
         epsilon = st.number_input("Enter the error tolerance (epsilon):", value=0.002, placeholder="Enter a number")
         
-        # Find Minimum button
-        if st.button('Find Minimum', key='find_minimum'):
-            if a is None or b is None or epsilon is None:
-                st.error("Please fill in all input fields.")
-            else:
-                minimum, steps = fibonacci_search(func, a, b, epsilon)
-                
-                if minimum is not None:
-                    # Display minimum result
-                    st.subheader(f"The minimum point is approximately at x = {minimum}")
-                    
-                    # Display the steps in table format
-                    st.subheader("Steps of Fibonacci Search")
-                    df = pd.DataFrame(steps)
-                    st.table(df)
-        
         # Logo and Developed By section
         st.markdown(
             """
@@ -183,6 +167,22 @@ def main():
             """,
             unsafe_allow_html=True
         )
+    
+    # Find Minimum button (on the right side)
+    if st.button('Find Minimum', key='find_minimum'):
+        if a is None or b is None or epsilon is None:
+            st.error("Please fill in all input fields.")
+        else:
+            minimum, steps = fibonacci_search(func, a, b, epsilon)
+            
+            if minimum is not None:
+                # Display minimum result
+                st.subheader(f"The minimum point is approximately at x = {minimum}")
+                
+                # Display the steps in table format
+                st.subheader("Steps of Fibonacci Search")
+                df = pd.DataFrame(steps)
+                st.table(df)
 
 # Run the main function
 if __name__ == "__main__":
