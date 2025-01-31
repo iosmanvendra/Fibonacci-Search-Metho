@@ -35,11 +35,8 @@ def fibonacci_search(func, a, b, epsilon):
         'New b': x2 if f1 < f2 else b   # Updated based on condition
     })
     
-    for i in range(1, n):
-        if i + 2 >= len(fib_reverse):
-            break  # Stop if we exceed the bounds of the Fibonacci sequence
-        
-        d = fib_reverse[i + 2] / fib_reverse[i]  # Update ratio
+    for i in range(1, n - 1):  # Adjusting loop to correctly handle Fibonacci sequence
+        d = fib_reverse[i + 2] / fib_reverse[i]  # Update ratio based on Fibonacci series
         
         if f1 < f2:
             b = x2
