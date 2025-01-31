@@ -27,7 +27,6 @@ def fibonacci_search(func, a, b, epsilon):
     
     steps = []  # To store the steps for displaying in the table
     steps.append({
-        'Iteration': len(fib) - k - 1,  # Iteration counter
         'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
         'Current a': a, 
         'Current b': b, 
@@ -63,7 +62,6 @@ def fibonacci_search(func, a, b, epsilon):
             f2 = func(x2)
         
         steps.append({
-            'Iteration': len(fib) - k - 1,  # Iteration counter
             'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
             'Current a': a, 
             'Current b': b, 
@@ -81,12 +79,13 @@ def fibonacci_search(func, a, b, epsilon):
 
 # Streamlit user interface
 def main():
-    # Custom CSS for colorful UI
+    # Custom CSS for professional coloring
     st.markdown(
         """
         <style>
         .stApp {
-            background-color: #f0f2f6;
+            background-color: #f7f9fc;
+            font-family: 'Arial', sans-serif;
         }
         .stButton>button {
             background-color: #4CAF50;
@@ -94,21 +93,34 @@ def main():
             border-radius: 5px;
             padding: 10px 20px;
             font-size: 16px;
+            transition: background-color 0.3s ease;
         }
         .stButton>button:hover {
             background-color: #45a049;
         }
         .stHeader {
-            color: #4CAF50;
+            color: #2c3e50;
+            font-weight: bold;
         }
         .stNumberInput>label, .stTextInput>label {
-            color: #4CAF50;
+            color: #2c3e50;
             font-weight: bold;
         }
         .stTable {
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .stSidebar {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+        }
+        .stSidebar .stHeader {
+            color: white;
+        }
+        .stSidebar .stNumberInput>label, .stSidebar .stTextInput>label {
+            color: white;
         }
         </style>
         """,
@@ -122,28 +134,31 @@ def main():
         st.header("Inputs")
         
         # User input for the function
-        func_str = st.text_input("Enter the function (e.g., x**2 + 2*x):", "x**2 + 2*x")
+        func_str = st.text_input("Enter the function (e.g., x**2 + 2*x):", value="x**2 + 2*x")
         func = lambda x: eval(func_str)  # Convert the string to an executable function
         
         # User input for interval
-        a = st.number_input("Enter the starting point of the interval (a):")
-        b = st.number_input("Enter the ending point of the interval (b):")
+        a = st.number_input("Enter the starting point of the interval (a):", value=None, placeholder="Enter a number")
+        b = st.number_input("Enter the ending point of the interval (b):", value=None, placeholder="Enter a number")
         
         # User input for epsilon
-        epsilon = st.number_input("Enter the error tolerance (epsilon):", 0.001)
+        epsilon = st.number_input("Enter the error tolerance (epsilon):", value=None, placeholder="Enter a number")
         
     # Perform Fibonacci Search and capture steps
     if st.button('Find Minimum'):
-        minimum, steps = fibonacci_search(func, a, b, epsilon)
-        
-        if minimum is not None:
-            # Display minimum result
-            st.subheader(f"The minimum point is approximately at x = {minimum}")
+        if a is None or b is None or epsilon is None:
+            st.error("Please fill in all input fields.")
+        else:
+            minimum, steps = fibonacci_search(func, a, b, epsilon)
             
-            # Display the steps in table format
-            st.subheader("Steps of Fibonacci Search")
-            df = pd.DataFrame(steps)
-            st.table(df)
+            if minimum is not None:
+                # Display minimum result
+                st.subheader(f"The minimum point is approximately at x = {minimum}")
+                
+                # Display the steps in table format
+                st.subheader("Steps of Fibonacci Search")
+                df = pd.DataFrame(steps)
+                st.table(df)
 
 # Run the main function
 if __name__ == "__main__":
