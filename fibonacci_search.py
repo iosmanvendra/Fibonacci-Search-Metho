@@ -1,5 +1,4 @@
 import streamlit as st
-import math
 import pandas as pd
 
 # Fibonacci Search Method
@@ -11,8 +10,12 @@ def fibonacci_search(func, a, b, epsilon):
     
     # Number of iterations
     k = len(fib) - 1
-    x1 = a + (fib[k-2] / fib[k]) * (b - a)
-    x2 = a + (fib[k-1] / fib[k]) * (b - a)
+    fib_reverse = fib[::-1]  # Reverse Fibonacci series for display
+
+    # Initialize x1 and x2
+    d = fib_reverse[k - 2] / fib_reverse[k]
+    x1 = b - d * (b - a)
+    x2 = a + d * (b - a)
     
     # Initial function evaluations
     f1 = func(x1)
@@ -20,14 +23,15 @@ def fibonacci_search(func, a, b, epsilon):
     
     steps = []  # To store the steps for displaying in the table
     steps.append({
-        'Iteration': k, 
-        'a': a, 
-        'b': b, 
+        'Iteration': k - len(fib) + 1,  # Iteration counter
+        'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
+        'Current a': a, 
+        'Current b': b, 
+        'd': d, 
         'x1': x1, 
-        'f1': f1, 
         'x2': x2, 
-        'f2': f2, 
-        'd': fib[k-2] / fib[k], 
+        'f(x1)': f1, 
+        'f(x2)': f2, 
         'New a': a, 
         'New b': b
     })
@@ -38,25 +42,28 @@ def fibonacci_search(func, a, b, epsilon):
             x2 = x1
             f2 = f1
             k -= 1
-            x1 = a + (fib[k-2] / fib[k]) * (b - a)
+            d = fib_reverse[k - 2] / fib_reverse[k]
+            x1 = b - d * (b - a)
             f1 = func(x1)
         else:
             a = x1
             x1 = x2
             f1 = f2
             k -= 1
-            x2 = a + (fib[k-1] / fib[k]) * (b - a)
+            d = fib_reverse[k - 2] / fib_reverse[k]
+            x2 = a + d * (b - a)
             f2 = func(x2)
         
         steps.append({
-            'Iteration': k, 
-            'a': a, 
-            'b': b, 
+            'Iteration': len(fib) - k - 1,  # Iteration counter
+            'Fibonacci Series': fib_reverse[k],  # Fibonacci series in reverse
+            'Current a': a, 
+            'Current b': b, 
+            'd': d, 
             'x1': x1, 
-            'f1': f1, 
             'x2': x2, 
-            'f2': f2, 
-            'd': fib[k-2] / fib[k], 
+            'f(x1)': f1, 
+            'f(x2)': f2, 
             'New a': a, 
             'New b': b
         })
