@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import math
 
 # Fibonacci Search Method
 def fibonacci_search(func, a, b, epsilon):
@@ -18,8 +19,8 @@ def fibonacci_search(func, a, b, epsilon):
         return None, None
     
     d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
-    x1 = b - d * (b - a)
-    x2 = a + d * (b - a)
+    x1 = a + d * (b - a)
+    x2 = b - d * (b - a)
     
     # Initial function evaluations
     f1 = func(x1)
@@ -48,7 +49,7 @@ def fibonacci_search(func, a, b, epsilon):
             if k < 2:
                 break
             d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
-            x1 = b - d * (b - a)
+            x1 = a + d * (b - a)
             f1 = func(x1)
         else:
             a = x1
@@ -58,7 +59,7 @@ def fibonacci_search(func, a, b, epsilon):
             if k < 2:
                 break
             d = fib_reverse[k - 2] / fib_reverse[k] if fib_reverse[k] != 0 else 0
-            x2 = a + d * (b - a)
+            x2 = b - d * (b - a)
             f2 = func(x2)
         
         steps.append({
@@ -159,6 +160,14 @@ def main():
                 st.subheader("Steps of Fibonacci Search")
                 df = pd.DataFrame(steps)
                 st.table(df)
+                
+                # Add Manvendra's link at the bottom
+                st.markdown(
+                    """
+                    <p style="text-align:center;">Fibonacci Search Method by [Manvendra Singh Rathore](https://www.linkedin.com/in/manvendrasinghrathore/)</p>
+                    """,
+                    unsafe_allow_html=True
+                )
 
 # Run the main function
 if __name__ == "__main__":
