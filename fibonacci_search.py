@@ -115,6 +115,27 @@ def main():
         .stSidebar .stNumberInput>label, .stSidebar .stTextInput>label {
             color: white;
         }
+        .logo {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logo img {
+            width: 100px;
+            border-radius: 10px;
+        }
+        .developed-by {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #f0f2f6;
+        }
+        .developed-by a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        .developed-by a:hover {
+            text-decoration: underline;
+        }
         </style>
         """,
         unsafe_allow_html=True
@@ -137,21 +158,34 @@ def main():
         # User input for epsilon
         epsilon = st.number_input("Enter the error tolerance (epsilon):", value=0.002, placeholder="Enter a number")
         
-    # Perform Fibonacci Search and capture steps
-    if st.button('Find Minimum'):
-        if a is None or b is None or epsilon is None:
-            st.error("Please fill in all input fields.")
-        else:
-            minimum, steps = fibonacci_search(func, a, b, epsilon)
-            
-            if minimum is not None:
-                # Display minimum result
-                st.subheader(f"The minimum point is approximately at x = {minimum}")
+        # Find Minimum button
+        if st.button('Find Minimum', key='find_minimum'):
+            if a is None or b is None or epsilon is None:
+                st.error("Please fill in all input fields.")
+            else:
+                minimum, steps = fibonacci_search(func, a, b, epsilon)
                 
-                # Display the steps in table format
-                st.subheader("Steps of Fibonacci Search")
-                df = pd.DataFrame(steps)
-                st.table(df)
+                if minimum is not None:
+                    # Display minimum result
+                    st.subheader(f"The minimum point is approximately at x = {minimum}")
+                    
+                    # Display the steps in table format
+                    st.subheader("Steps of Fibonacci Search")
+                    df = pd.DataFrame(steps)
+                    st.table(df)
+        
+        # Logo and Developed By section
+        st.markdown(
+            """
+            <div class="logo">
+                <img src="https://via.placeholder.com/100" alt="Logo">
+            </div>
+            <div class="developed-by">
+                Developed by <a href="https://www.example.com" target="_blank">Manvendra</a>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
 # Run the main function
 if __name__ == "__main__":
