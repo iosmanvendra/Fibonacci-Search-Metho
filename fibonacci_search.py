@@ -13,7 +13,8 @@ def fibonacci_search(func, a, b, epsilon):
     fib_reverse = fib[::-1]  # Reverse Fibonacci series for display
 
     # Initialize points
-    x1 = a + (fib_reverse[2] / fib_reverse[0]) * (b - a)
+    d = fib_reverse[2] / fib_reverse[0]  # Initial ratio
+    x1 = a + d * (b - a)
     x2 = a + (fib_reverse[1] / fib_reverse[0]) * (b - a)
     
     # Initial function evaluations
@@ -25,6 +26,7 @@ def fibonacci_search(func, a, b, epsilon):
         'Fibonacci Series': fib_reverse[0],  # Fibonacci series in reverse
         'Current a': a, 
         'Current b': b, 
+        'd': d, 
         'x1': x1, 
         'x2': x2, 
         'f(x1)': f1, 
@@ -37,11 +39,13 @@ def fibonacci_search(func, a, b, epsilon):
         if i + 2 >= len(fib_reverse):
             break  # Stop if we exceed the bounds of the Fibonacci sequence
         
+        d = fib_reverse[i + 2] / fib_reverse[i]  # Update ratio
+        
         if f1 < f2:
             b = x2
             x2 = x1
             f2 = f1
-            x1 = a + (fib_reverse[i + 2] / fib_reverse[i]) * (b - a)
+            x1 = a + d * (b - a)
             f1 = func(x1)
         else:
             a = x1
@@ -54,8 +58,9 @@ def fibonacci_search(func, a, b, epsilon):
             'Fibonacci Series': fib_reverse[i],  # Fibonacci series in reverse
             'Current a': a, 
             'Current b': b, 
-            'x1': x1, 
-            'x2': x2, 
+            'd = fn-2/fn+1-k': d, 
+            'x1 = a + d*(b-a)': x1, 
+            'x2 = b - d*(b-a': x2, 
             'f(x1)': f1, 
             'f(x2)': f2, 
             'New a': a, 
