@@ -58,9 +58,9 @@ def fibonacci_search(func, a, b, epsilon):
             'Fibonacci Series': fib_reverse[i],  # Fibonacci series in reverse
             'Current a': a, 
             'Current b': b, 
-            'd = fn-2/fn+1-k': d, 
-            'x1 = a + d*(b-a)': x1, 
-            'x2 = b - d*(b-a': x2, 
+            'd': d, 
+            'x1': x1, 
+            'x2': x2, 
             'f(x1)': f1, 
             'f(x2)': f2, 
             'New a': a, 
