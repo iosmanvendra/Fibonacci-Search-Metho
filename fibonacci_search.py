@@ -178,10 +178,7 @@ def main():
         st.markdown(
             """
             <div class="developed-by">
-            <div class="logo">
-                <img src="https://via.placeholder.com/100" alt="Logo">
-            </div>
-                Developed by <a href="https://www.example.com" target="_blank">Manvendra</a>
+                Code by <a href="https://www.linkedin.com/in/manvendrasinghrathore/" target="#">Manvendra</a>
             </div>
             """,
             unsafe_allow_html=True
