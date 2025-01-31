@@ -126,8 +126,8 @@ def main():
         func = lambda x: eval(func_str)  # Convert the string to an executable function
         
         # User input for interval
-        a = st.number_input("Enter the starting point of the interval (a):", 0.0)
-        b = st.number_input("Enter the ending point of the interval (b):", 1.0)
+        a = st.number_input("Enter the starting point of the interval (a):")
+        b = st.number_input("Enter the ending point of the interval (b):")
         
         # User input for epsilon
         epsilon = st.number_input("Enter the error tolerance (epsilon):", 0.001)
