@@ -161,7 +161,7 @@ def main():
             font-weight: bold;
         }
         .stTable tbody tr:nth-child(odd) {
-            background-color: #f0f2f6;
+            background-color: #A9A8D6;
         }
         .stTable tbody tr:nth-child(even) {
             background-color: #ffffff;
