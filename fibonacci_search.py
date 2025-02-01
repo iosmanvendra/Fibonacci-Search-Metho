@@ -210,10 +210,17 @@ def main():
         
         # User input for epsilon
         epsilon = st.number_input("Enter the error tolerance (epsilon):", value=0.0002, step=0.0001, format="%.5f")
-        
-        # User input for method selection
+        st.markdown("""
+    <style>
+        .stRadio > div > div > div {
+            color: white;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# The radio button widget
         method = st.radio("Select the search method:", ("Fibonacci Search", "Golden Section Search"))
-        
+          
         # Logo and Developed By section
         st.markdown(
             """
