@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import math
 
 # Fibonacci Search Method
 def fibonacci_search(func, a, b, epsilon):
@@ -56,6 +57,59 @@ def fibonacci_search(func, a, b, epsilon):
             'Current a': a, 
             'Current b': b, 
             'd': d, 
+            'x1': x1, 
+            'x2': x2, 
+            'f(x1)': f1, 
+            'f(x2)': f2, 
+            'New a': a if f1 >= f2 else a,  # Updated based on condition
+            'New b': x2 if f1 < f2 else b   # Updated based on condition
+        })
+    
+    # The minimum point
+    return (a + b) / 2, steps
+
+# Golden Section Search Method
+def golden_section_search(func, a, b, epsilon):
+    # Golden ratio
+    phi = (math.sqrt(5) - 1) / 2
+    
+    # Initialize points
+    x1 = a + (1 - phi) * (b - a)
+    x2 = a + phi * (b - a)
+    
+    # Initial function evaluations
+    f1 = func(x1)
+    f2 = func(x2)
+    
+    steps = []  # To store the steps for displaying in the table
+    steps.append({
+        'Current a': a, 
+        'Current b': b, 
+        'x1': x1, 
+        'x2': x2, 
+        'f(x1)': f1, 
+        'f(x2)': f2, 
+        'New a': a if f1 >= f2 else a,  # Updated based on condition
+        'New b': x2 if f1 < f2 else b   # Updated based on condition
+    })
+    
+    while abs(b - a) > epsilon:
+        if f1 < f2:
+            b = x2
+            x2 = x1
+            f2 = f1
+            x1 = a + (1 - phi) * (b - a)
+            f1 = func(x1)
+        else:
+            a = x1
+            x1 = x2
+            f1 = f2
+            x2 = a + phi * (b - a)
+            f2 = func(x2)
+        
+        steps.append({
+            'Current a': a, 
+            'Current b': b, 
             'x1': x1, 
             'x2': x2, 
             'f(x1)': f1, 
@@ -141,7 +195,7 @@ def main():
         unsafe_allow_html=True
     )
     
-    st.title("Fibonacci Search Method")
+    st.title("Optimization Search Methods")
     
     # Left-side input panel
     with st.sidebar:
@@ -158,6 +212,9 @@ def main():
         # User input for epsilon
         epsilon = st.number_input("Enter the error tolerance (epsilon):", value=0.0002, step=0.0001, format="%.5f")
         
+        # User input for method selection
+        method = st.radio("Select the search method:", ("Fibonacci Search", "Golden Section Search"))
+        
         # Logo and Developed By section
         st.markdown(
             """
@@ -173,14 +230,17 @@ def main():
         if a is None or b is None or epsilon is None:
             st.error("Please fill in all input fields.")
         else:
-            minimum, steps = fibonacci_search(func, a, b, epsilon)
+            if method == "Fibonacci Search":
+                minimum, steps = fibonacci_search(func, a, b, epsilon)
+            else:
+                minimum, steps = golden_section_search(func, a, b, epsilon)
             
             if minimum is not None:
                 # Display minimum result
                 st.subheader(f"The minimum point is approximately at x = {minimum}")
                 
                 # Display the steps in table format
-                st.subheader("Steps of Fibonacci Search")
+                st.subheader(f"Steps of {method}")
                 df = pd.DataFrame(steps)
                 st.table(df)
 
