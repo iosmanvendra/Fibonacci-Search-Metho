@@ -156,7 +156,7 @@ def main():
         b = st.number_input("Enter the ending point of the interval (b):", value=1.0, placeholder="Enter a number")
         
         # User input for epsilon
-        epsilon = st.number_input("Enter the error tolerance (epsilon):", value=0.002, placeholder="Enter a number")
+        epsilon = st.number_input("Enter the error tolerance (epsilon):", value=0.0002, placeholder="Enter a number")
         
         # Logo and Developed By section
         st.markdown(
