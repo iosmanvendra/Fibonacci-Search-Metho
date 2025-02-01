@@ -74,7 +74,7 @@ def golden_section_search(func, a, b, epsilon):
     phi = (math.sqrt(5) - 1) / 2
     
     # Initialize points
-    x1 = a + (1 - phi) * (b - a)
+    x1 = b - phi * (b - a)
     x2 = a + phi * (b - a)
     
     # Initial function evaluations
@@ -98,7 +98,7 @@ def golden_section_search(func, a, b, epsilon):
             b = x2
             x2 = x1
             f2 = f1
-            x1 = a + (1 - phi) * (b - a)
+            x1 = b - phi * (b - a)
             f1 = func(x1)
         else:
             a = x1
