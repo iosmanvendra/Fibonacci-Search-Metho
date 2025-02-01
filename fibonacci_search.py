@@ -67,8 +67,7 @@ def fibonacci_search(func, a, b, epsilon):
     
     # The minimum point
     return (a + b) / 2, steps
-
-# Golden Section Search Method
+    
 def golden_section_search(func, a, b, epsilon):
     # Golden ratio
     phi = (math.sqrt(5) - 1) / 2
@@ -89,7 +88,7 @@ def golden_section_search(func, a, b, epsilon):
         'x2': x2, 
         'f(x1)': f1, 
         'f(x2)': f2, 
-        'New a': a if f1 >= f2 else a,  # Updated based on condition
+        'New a': a if f1 >= f2 else x1,  # Updated based on condition
         'New b': x2 if f1 < f2 else b   # Updated based on condition
     })
     
@@ -114,7 +113,7 @@ def golden_section_search(func, a, b, epsilon):
             'x2': x2, 
             'f(x1)': f1, 
             'f(x2)': f2, 
-            'New a': a if f1 >= f2 else a,  # Updated based on condition
+            'New a': a if f1 >= f2 else x1,  # Updated based on condition
             'New b': x2 if f1 < f2 else b   # Updated based on condition
         })
     
