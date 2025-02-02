@@ -190,6 +190,9 @@ def main():
         .developed-by a:hover {
             text-decoration: underline;
         }
+        .stRadio label {
+            color: white !important;
+        }
         </style>
         """,
         unsafe_allow_html=True
